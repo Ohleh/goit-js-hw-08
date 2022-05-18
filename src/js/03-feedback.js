@@ -1,76 +1,39 @@
-var throttle = require('lodash.throttle');
+// var throttle = require('lodash.throttle');
+import throttle from 'lodash.throttle';
 
 const form = document.querySelector('form');
 const formEmail = document.querySelector('input');
 const formMessage = document.querySelector('textarea');
+const STORAGE_KEY = 'feedback-form-state';
 const objDataForm = {};
-// objDataForm.submitt = 'yes';
 
 form.addEventListener('submit', onFormSubmit);
-formEmail.addEventListener('input', onFormEmail);
-formMessage.addEventListener('input', onFormMessage);
+form.addEventListener('input', throttle(onFormInput, 1000));
+
+savedInputData();
+
+function onFormInput(e) {
+  objDataForm[e.target.name] = e.target.value;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(objDataForm));
+}
+
+function savedInputData() {
+  const inputDataStorage = localStorage.getItem(STORAGE_KEY);
+  const savedInputData = JSON.parse(inputDataStorage);
+  if (savedInputData.email || savedInputData.message) {
+    formEmail.value = savedInputData.email;
+    formMessage.textContent = savedInputData.message;
+  }
+}
 
 function onFormSubmit(ev) {
   ev.preventDefault();
-  console.log(ev.timeStamp);
-  objDataForm.submitt = ev.timeStamp;
-  //   ev.currentTarget.reset();
+  localStorage.removeItem(STORAGE_KEY);
+  ev.target.reset();
+  //   ev.target['1'].textContent.reset();
+  //   console.dir(ev);
+  // console.log(ev.target['1'].textContent);
+  //   console.log(ev.target);
+
+  //   ev.currentTarget.textarea.textContent.reset();
 }
-
-function onFormEmail(ev) {
-  objDataForm.email = ev.currentTarget.value;
-  //   localStorage.setItem('emailData', ev.currentTarget.value);
-}
-
-function onFormMessage(ev) {
-  objDataForm.message = ev.currentTarget.value;
-  //   localStorage.setItem('messageData', ev.currentTarget.value);
-}
-
-console.log(objDataForm.submitt);
-// console.log(objDataForm.submitt);
-// localStorage.setItem('emailData', objDataForm.message);
-
-//
-//
-//
-//
-//
-
-// const formMessage = document.querySelector('textarea');
-// const formButton = document.querySelector('button');
-
-// const objectDataSave = {};
-
-// //
-// const LOCALSTORAGE_KEY = 'feedback-form-state';
-
-// const onFormEmail = function (event) {
-//   //   event.preventDefault();
-//   objectDataSave[event.target.name] = event.target.value;
-
-//   //   console.log(event.target.name);
-//   localStorage.setItem(LOCALSTORAGE_KEY, event.currentTarget.value);
-//   //   objectDataSave = event.currentTarget.value;
-// };
-
-// console.log(objectDataSave);
-// //
-// //
-// const onFormMessage = function (event) {
-//   event.preventDefault();
-//   console.log(event.currentTarget.value);
-// };
-
-// formMessage.addEventListener('input', onFormMessage);
-// //
-// //
-// // let email = [];
-// // const message = [];
-// //
-// // const objectDataSave = {
-// //   email,
-// //   message,
-// // };
-
-// // localStorage.setItem('feedback-form-state', JSON.stringify(objectDataSave));
