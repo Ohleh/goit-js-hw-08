@@ -30,7 +30,7 @@ function onFormSubmit(ev) {
   ev.preventDefault();
   localStorage.removeItem(STORAGE_KEY);
   ev.target.reset();
-  ev.target.textarea.textContent = '';
+  //   ev.target.textarea.textContent = '';
   // ev.target['1'].textContent.reset();
   //   console.dir(ev);
   // console.log(ev.target['1'].textContent);
