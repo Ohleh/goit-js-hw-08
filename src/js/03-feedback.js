@@ -28,12 +28,15 @@ function savedInputData() {
 
 function onFormSubmit(ev) {
   ev.preventDefault();
+  //   console.log(ev.target);
+  console.log('Email', ev.target['0'].value);
+  console.log('Message', ev.target['1'].value);
   localStorage.removeItem(STORAGE_KEY);
-  ev.target.reset();
+  // ev.target.reset();
   //   ev.target.textarea.textContent = '';
   // ev.target['1'].textContent.reset();
   //   console.dir(ev);
-  // console.log(ev.target['1'].textContent);
+  //   console.log(ev.target['1'].textContent);
   //   console.log(ev.target);
 
   //   ev.currentTarget.textarea.textContent.reset();
