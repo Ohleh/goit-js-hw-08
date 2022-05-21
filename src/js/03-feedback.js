@@ -13,12 +13,11 @@ const objDataForm = {};
 refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener('input', throttle(onFormInput, 100));
 
-// savedInputData();
 checkInputs();
 
 function onFormSubmit(ev) {
   ev.preventDefault();
-  //   console.log({ Email: ev.target['0'].value, Message: ev.target['1'].value });
+  console.log({ Email: ev.target['0'].value, Message: ev.target['1'].value });
   localStorage.removeItem(STORAGE_KEY);
   ev.target.reset();
 }
@@ -31,8 +30,8 @@ function onFormInput(e) {
 
 function checkInputs() {
   const savedInputData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-  //   console.log(savedInputData);
   if (savedInputData) {
+    // refs.form.value = savedInputData;
     refs.formEmail.value = savedInputData.email;
     refs.formMessage.textContent = savedInputData.message;
   }
