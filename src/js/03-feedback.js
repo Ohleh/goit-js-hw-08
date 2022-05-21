@@ -17,7 +17,7 @@ checkInputs();
 
 function onFormSubmit(ev) {
   ev.preventDefault();
-  console.log({ Email: ev.target['0'].value, Message: ev.target['1'].value });
+  //   console.log({ Email: ev.target['0'].value, Message: ev.target['1'].value });
   localStorage.removeItem(STORAGE_KEY);
   ev.target.reset();
 }
