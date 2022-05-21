@@ -17,21 +17,28 @@ checkInputs();
 function onFormSubmit(ev) {
   ev.preventDefault();
   //   console.log({ Email: ev.target['0'].value, Message: ev.target['1'].value });
+  ev.currentTarget.reset();
+  ev.target.value;
   localStorage.removeItem(STORAGE_KEY);
-  ev.target.reset();
 }
 
 function onFormInput(e) {
   objDataForm[e.target.name] = e.target.value;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(objDataForm));
+  //   console.dir(refs.form.email.value);
 }
 
 function checkInputs() {
   const savedInputData = JSON.parse(localStorage.getItem(STORAGE_KEY));
   if (savedInputData) {
-    refs.formEmail.value = savedInputData.email;
-    refs.formMessage.textContent = savedInputData.message;
+    if (savedInputData.email) {
+      refs.form.email.value = savedInputData.email;
+    }
+    if (savedInputData.message) {
+      refs.formMessage.textContent = savedInputData.message;
+    }
   }
+  onFormInput();
 }
 
 // function savedInputData() {
